@@ -3,29 +3,31 @@ require("express-async-errors")
 const express = require("express")
 const app = express()
 
-//connectDB
+//import connectDB
 const connectDB = require("./db/connect")
 
-//routes
+//import routes
 const authRouter = require("./routes/auth")
 const jobRouter = require("./routes/jobs")
 
-// error handler
+//import error handler
 const notFoundMiddleware = require("./middleware/not-found")
 const errorHandlerMiddleware = require("./middleware/error-handler")
 
+//middleware to parse data coming in request
 app.use(express.json())
-// extra packages
 
-// routes
+//routes
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/jobs", jobRouter)
 
+//middlewares to handle errors
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
 
 const port = process.env.PORT || 5000
 
+//function to connect with database and start the server
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI)
