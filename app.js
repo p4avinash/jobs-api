@@ -5,6 +5,7 @@ const app = express()
 
 //import connectDB
 const connectDB = require("./db/connect")
+const authenticateUser = require("./middleware/authentication")
 
 //import routes
 const authRouter = require("./routes/auth")
@@ -19,7 +20,7 @@ app.use(express.json())
 
 //routes
 app.use("/api/v1/auth", authRouter)
-app.use("/api/v1/jobs", jobRouter)
+app.use("/api/v1/jobs", authenticateUser, jobRouter)
 
 //middlewares to handle errors
 app.use(notFoundMiddleware)

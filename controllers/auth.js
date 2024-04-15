@@ -37,9 +37,7 @@ const login = async (req, res) => {
 
   //create token (code in User Schema)
   const token = user.createJwtToken()
-  res
-    .status(StatusCodes.OK)
-    .json({ user: { name: user.name, email: user.email }, token })
+  res.status(StatusCodes.OK).json({ user: { name: user.name }, token })
 }
 
 module.exports = { register, login }
